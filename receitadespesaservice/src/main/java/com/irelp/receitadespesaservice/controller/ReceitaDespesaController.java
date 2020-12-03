@@ -23,7 +23,11 @@ public class ReceitaDespesaController {
 	public ResponseEntity<?> Teste() {
 		return ResponseEntity.ok("Teste");
 	}
-	
+	@RequestMapping(value = "/slack", method = RequestMethod.GET)
+	public ResponseEntity<?> Slack() {
+		
+		return ResponseEntity.ok(service.Slack());
+	}
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ResponseEntity<?> listReceitaDespesa() {
 		return ResponseEntity.ok(service.listReceitaDespesa());

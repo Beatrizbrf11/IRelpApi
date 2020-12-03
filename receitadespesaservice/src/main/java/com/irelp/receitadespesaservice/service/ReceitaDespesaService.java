@@ -2,8 +2,6 @@ package com.irelp.receitadespesaservice.service;
 
 import java.util.List;
 
-import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,7 +9,6 @@ import com.irelp.receitadespesaservice.entity.ReceitaDespesa;
 import com.irelp.receitadespesaservice.repository.ReceitaDespesaRepository;
 
 @Service
-@Transactional
 public class ReceitaDespesaService {
 
 	@Autowired
@@ -45,13 +42,25 @@ public class ReceitaDespesaService {
 
 			if (receitaDespesa.getDespesa())
 				texto = "Despesa";
-			new Slack("https://hooks.slack.com/services/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")
+			new Slack("https://hooks.slack.com/services/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")
 					.text("Sucesso ao cadastrar " + texto + " com a descrição: " + receitaDespesa.getDescricao())
 					.send();
 
 			return receitaDespesa;
 		} catch (Exception ex) {
 			throw new RuntimeException("Erro ao criar: " + ex.getMessage());
+		}
+	}
+	
+	public String Slack() {
+		try {
+			
+			new Slack("https://hooks.slack.com/services/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")
+					.text("Sucesso ao cadastrar")
+					.send();
+			return "Sucesso";
+		} catch (Exception ex) {
+			return "Erro integrar com slack; Mensagem:  " + ex.getMessage() +" StackTrace: "+ ex.getStackTrace() +" Cause: "+ ex.getCause();
 		}
 	}
 }
